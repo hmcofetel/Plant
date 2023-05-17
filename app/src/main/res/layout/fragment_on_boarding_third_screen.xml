@@ -5,58 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E7E8E3"
-    tools:context=".introduction.SecondScreen">
+    tools:context=".introduction.ThirdScreen">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="367dp"
-        android:layout_height="124dp"
-        android:layout_gravity="left"
-        android:layout_marginTop="92dp"
-        android:background="@drawable/onboarding_second_screen_img1"
+        android:id="@+id/imageView2"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/onboarding_third_screen_img1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="275dp"
-        android:layout_height="83dp"
+        android:id="@+id/textView7"
+        android:layout_width="281dp"
+        android:layout_height="76dp"
         android:layout_marginTop="60dp"
         android:gravity="center"
-        android:hint="Discover Your Type Of Plant"
+        android:hint="Connect With Other Plant Lovers"
         android:textColor="#2D6936"
         android:textColorHint="#2D6936"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView3"
         android:layout_width="245dp"
         android:layout_height="75dp"
-        android:layout_gravity="left"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Tips N Tricks to grow a healthy plant"
+        android:text="Join A Community"
         android:textColor="#2D6936"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/onboardingSecondScreenBnt"
+        android:id="@+id/onboardingThirdScreenBnt"
         android:layout_width="256dp"
         android:layout_height="67dp"
         android:layout_marginBottom="80dp"
         android:backgroundTint="#47734D"
         android:gravity="center"
-        android:text="Continue"
+        android:text="Finish"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -64,5 +62,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

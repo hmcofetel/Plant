@@ -1,5 +1,6 @@
 package com.project.plantapp
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,7 +19,12 @@ class SplashFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.navigate_splashFragment_to_homeFragment)
+            if (onBoardingIsFinished()){
+                findNavController().navigate(R.id.navigate_splashFragment_to_homeFragment)
+            }else{
+                findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+            }
+
         }, 3000)
         val view =  inflater.inflate(R.layout.fragment_splash, container, false)
 
@@ -32,6 +38,11 @@ class SplashFragment : Fragment() {
         imgSplash.animation = animTop
 
         return view
+    }
+
+    private fun onBoardingIsFinished(): Boolean{
+        val sharePreferences = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        return sharePreferences.getBoolean("finished", false)
     }
 
 
