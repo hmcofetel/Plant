@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E7E8E3"
+    tools:context=".introduction.SecondScreen">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="367dp"
+        android:layout_height="124dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/onboarding_second_screen_image1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="261dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="116dp"
+        android:gravity="center"
+        android:hint="Discover Your Type Of Plant"
+        android:textColor="#2D6936"
+        android:textColorHint="#2D6936"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="245dp"
+        android:layout_height="75dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="Tips N Tricks to grow a healthy plant"
+        android:textColor="#2D6936"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="256dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="#47734D"
+        android:gravity="center"
+        android:text="Continue"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
