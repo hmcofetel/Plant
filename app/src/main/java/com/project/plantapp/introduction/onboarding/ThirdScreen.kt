@@ -1,4 +1,4 @@
-package com.project.plantapp.introduction
+package com.project.plantapp.introduction.onboarding
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.project.plantapp.R
@@ -24,7 +23,7 @@ class ThirdScreen : Fragment() {
         val finish = view.findViewById<MaterialButton>(R.id.onboardingThirdScreenBnt)
 
         finish.setOnClickListener {
-            findNavController().navigate(R.id.action_onBoardingFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
             onBoardingIsFinished()
         }
 

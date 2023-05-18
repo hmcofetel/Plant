@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E7E8E3"
-    tools:context=".introduction.ThirdScreen">
+    tools:context=".introduction.onboarding.ThirdScreen">
 
     <ImageView
         android:id="@+id/imageView2"

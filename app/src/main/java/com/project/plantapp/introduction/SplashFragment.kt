@@ -1,4 +1,4 @@
-package com.project.plantapp
+package com.project.plantapp.introduction
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.project.plantapp.R
 
 class SplashFragment : Fragment() {
     override fun onCreateView(
@@ -28,8 +29,8 @@ class SplashFragment : Fragment() {
         }, 3000)
         val view =  inflater.inflate(R.layout.fragment_splash, container, false)
 
-        val animTop = AnimationUtils.loadAnimation(view.context,R.anim.from_top )
-        val animBottom = AnimationUtils.loadAnimation(view.context,R.anim.from_bottom )
+        val animTop = AnimationUtils.loadAnimation(view.context, R.anim.from_top)
+        val animBottom = AnimationUtils.loadAnimation(view.context, R.anim.from_bottom)
 
         val tvSplash = view.findViewById<ImageView>(R.id.splash_ico_title)
         val imgSplash = view.findViewById<ImageView>(R.id.splash_ico_image)

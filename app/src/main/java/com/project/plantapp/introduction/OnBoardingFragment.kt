@@ -1,4 +1,4 @@
-package com.project.plantapp
+package com.project.plantapp.introduction
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
-import com.project.plantapp.introduction.FirstScreen
-import com.project.plantapp.introduction.SecondScreen
-import com.project.plantapp.introduction.ThirdScreen
+import com.project.plantapp.R
+import com.project.plantapp.introduction.onboarding.FirstScreen
+import com.project.plantapp.introduction.onboarding.SecondScreen
+import com.project.plantapp.introduction.onboarding.ThirdScreen
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 

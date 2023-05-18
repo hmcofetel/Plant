@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#47734D"
-    tools:context=".SplashFragment">
+    tools:context=".introduction.SplashFragment">
 
     <ImageView
         android:id="@+id/splash_ico_image"
