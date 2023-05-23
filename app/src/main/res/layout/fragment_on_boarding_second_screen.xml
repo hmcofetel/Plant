@@ -13,7 +13,7 @@
         android:layout_height="124dp"
         android:layout_gravity="left"
         android:layout_marginTop="92dp"
-        android:background="@drawable/onboarding_second_screen_img1"
+        android:background="@drawable/img_onboarding_second_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
