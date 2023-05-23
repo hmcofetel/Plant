@@ -9,7 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.project.plantapp.databinding.FragmentHomeBinding
 
 
@@ -19,16 +23,32 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-//        Handler(Looper.getMainLooper()).post{
+
+
+
+        Handler(Looper.getMainLooper()).post{
+            if(!onBoardingIsFinished()){
+                binding.root.findNavController().navigate(R.id.action_homeFragment_to_onBoardingFragment)
+            }
+            else
+            {
+                val navHostChild = childFragmentManager.findFragmentById(R.id.fragmentProfileContainerView) as NavHostFragment
+                val navControllerChild = navHostChild.navController
+                binding.bottomNavigationView.setupWithNavController(navControllerChild)
+            }
+
 //            if (onBoardingIsFinished()) {
 //                findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
 //            }else
 //            {
 //                findNavController().navigate(R.id.action_homeFragment_to_onBoardingFragment)
 //            }
-//        }
+        }
+
+
+
         return binding.root
     }
 
