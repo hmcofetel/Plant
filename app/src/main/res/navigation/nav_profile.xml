@@ -9,7 +9,7 @@
         android:id="@+id/mainProfileFragment"
         android:name="com.project.plantapp.MainProfileFragment"
         android:label="fragment_main_profile"
-        tools:layout="@layout/fragment_main_profile" >
+        tools:layout="@layout/fragment_profile_main" >
         <action
             android:id="@+id/action_mainProfileFragment_to_detailProfileFragment"
             app:destination="@id/detailProfileFragment" />
@@ -18,5 +18,17 @@
         android:id="@+id/detailProfileFragment"
         android:name="com.project.plantapp.DetailProfileFragment"
         android:label="fragment_detail_profile"
-        tools:layout="@layout/fragment_detail_profile" />
+        tools:layout="@layout/fragment_profile_detail" >
+        <action
+            android:id="@+id/action_detailProfileFragment_to_mainProfileFragment"
+            app:destination="@id/mainProfileFragment" />
+        <action
+            android:id="@+id/action_detailProfileFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.project.plantapp.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>
