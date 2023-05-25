@@ -46,6 +46,8 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
 
     override fun onClick(position: Int) {
         when(position){
+            2 -> binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_mySpeciesFragment)
+            3 -> binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_myArticlesFragment)
             4 -> binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_favoriteFragment)
         }
         requireActivity().findViewById<CoordinatorLayout>(R.id.coordinatorLayout).visibility =View.GONE

@@ -47,9 +47,9 @@
                 android:paddingBottom="0dp"
                 app:itemIconSize="30dp"
                 app:itemActiveIndicatorStyle="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-                app:itemIconTint="@color/plant"
+                app:itemIconTint="@color/bottom_nav_color"
                 app:itemPaddingBottom="0dp"
-                app:itemTextColor="@color/plant"
+                app:itemTextColor="@color/bottom_nav_color"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_menu" />
         </com.google.android.material.bottomappbar.BottomAppBar>

@@ -89,13 +89,14 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/articlesNavBnt"
         android:layout_width="112dp"
         android:layout_height="95dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/style_home_categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.21"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout8"
+        app:layout_constraintStart_toEndOf="@+id/speciesNavBnt"
         app:layout_constraintTop_toBottomOf="@+id/editText">
 
         <TextView
@@ -128,13 +129,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
+        android:id="@+id/addingNewNavBnt"
         android:layout_width="112dp"
         android:layout_height="95dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/style_home_categories"
-        app:layout_constraintEnd_toStartOf="@+id/constraintLayout8"
+        app:layout_constraintEnd_toStartOf="@+id/speciesNavBnt"
         app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText">
@@ -168,7 +169,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout8"
+        android:id="@+id/speciesNavBnt"
         android:layout_width="112dp"
         android:layout_height="95dp"
         android:layout_marginTop="24dp"

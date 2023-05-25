@@ -1,6 +1,8 @@
 package com.project.plantapp
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
@@ -25,8 +29,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-
+        getPermission()
 
         Handler(Looper.getMainLooper()).post{
             if(!onBoardingIsFinished()){
@@ -55,5 +58,20 @@ class HomeFragment : Fragment() {
     private fun onBoardingIsFinished(): Boolean{
         val sharePreferences = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         return sharePreferences.getBoolean("finished", false)
+    }
+
+    private fun getPermission(){
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+//            || ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(
+                    Manifest.permission.CAMERA,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                1
+            )
+
+        }
     }
 }

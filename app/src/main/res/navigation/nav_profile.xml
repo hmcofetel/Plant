@@ -6,6 +6,11 @@
     app:startDestination="@id/mainProfileFragment">
 
     <fragment
+        android:id="@+id/articlesFragment"
+        android:name="com.project.plantapp.ArticlesFragment"
+        android:label="fragment_articles"
+        tools:layout="@layout/fragment_articles" />
+    <fragment
         android:id="@+id/mainProfileFragment"
         android:name="com.project.plantapp.MainProfileFragment"
         android:label="fragment_main_profile"
@@ -13,6 +18,15 @@
         <action
             android:id="@+id/action_mainProfileFragment_to_detailProfileFragment"
             app:destination="@id/detailProfileFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_articlesFragment"
+            app:destination="@id/articlesFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_speciesFragment"
+            app:destination="@id/speciesFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProfileFragment"
@@ -24,11 +38,41 @@
             app:destination="@id/mainProfileFragment" />
         <action
             android:id="@+id/action_detailProfileFragment_to_favoriteFragment"
-            app:destination="@id/favoriteFragment" />
+            app:destination="@id/myFavoriteFragment" />
+        <action
+            android:id="@+id/action_detailProfileFragment_to_mySpeciesFragment"
+            app:destination="@id/mySpeciesFragment" />
+        <action
+            android:id="@+id/action_detailProfileFragment_to_myArticlesFragment"
+            app:destination="@id/myArticlesFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.project.plantapp.FavoriteFragment"
+     <fragment
+        android:id="@+id/myFavoriteFragment"
+        android:name="com.project.plantapp.MyFavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_my_favorite" />
+     <fragment
+        android:id="@+id/mySpeciesFragment"
+        android:name="com.project.plantapp.MySpeciesFragment"
+        android:label="fragment_species"
+        tools:layout="@layout/fragment_my_species" />
+    <fragment
+        android:id="@+id/myArticlesFragment"
+        android:name="com.project.plantapp.MyArticlesFragment"
+        android:label="fragment_articles"
+        tools:layout="@layout/fragment_my_articles" />
+    <fragment
+        android:id="@+id/speciesFragment"
+        android:name="com.project.plantapp.SpeciesFragment"
+        android:label="fragment_species"
+        tools:layout="@layout/fragment_species" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.project.plantapp.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_mainProfileFragment"
+            app:destination="@id/mainProfileFragment" />
+    </fragment>
 </navigation>
