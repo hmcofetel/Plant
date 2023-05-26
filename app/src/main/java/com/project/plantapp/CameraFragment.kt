@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.project.plantapp.databinding.FragmentCameraBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -53,7 +54,7 @@ class CameraFragment : Fragment() {
         handler = Handler((handlerThread).looper)
 
 
-        imageReader = ImageReader.newInstance(1080, 1920, ImageFormat.JPEG,2)
+        imageReader = ImageReader.newInstance(1080, 1920, ImageFormat.JPEG,1)
         imageReader.setOnImageAvailableListener({ p0 ->
             val image = p0?.acquireLatestImage()
             val buffer = image!!.planes[0].buffer
@@ -109,6 +110,10 @@ class CameraFragment : Fragment() {
                 capReq.addTarget(imageReader.surface)
                 cameraCaptureSession.capture(capReq.build(), null, null)
             }
+        }
+        binding.cameraFragmentBackBnt.setOnClickListener{
+            findNavController().navigate(R.id.mainProfileFragment)
+            requireActivity().findViewById<CoordinatorLayout>(R.id.coordinatorLayout).visibility = View.VISIBLE
         }
         return binding.root
     }

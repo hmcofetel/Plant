@@ -11,16 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+
+
     <Button
         android:id="@+id/captureBnt"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        android:text="capture"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/cameraFragmentBackBnt"
+        android:layout_width="39dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="44dp"
+        app:tint="@color/plant"
+        android:src="@drawable/ic_profile_detail_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

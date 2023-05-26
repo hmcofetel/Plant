@@ -1,12 +1,13 @@
-package com.project.plantapp
+package com.project.plantapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.project.plantapp.R
+import com.project.plantapp.model.ProfileDetailItem
 
 class ProfileDetailItemAdapt(private val detailList: ArrayList<ProfileDetailItem>, val listener: MyClickListener):RecyclerView.Adapter<ProfileDetailItemAdapt.MyViewHolder>() {
 
@@ -23,7 +24,7 @@ class ProfileDetailItemAdapt(private val detailList: ArrayList<ProfileDetailItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.profile_detail_item, parent,false))
+        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_profile_detail, parent,false))
     }
 
     override fun getItemCount(): Int {
