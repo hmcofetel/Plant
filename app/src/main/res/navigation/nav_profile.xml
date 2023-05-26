@@ -9,7 +9,11 @@
         android:id="@+id/articlesFragment"
         android:name="com.project.plantapp.ArticlesFragment"
         android:label="fragment_articles"
-        tools:layout="@layout/fragment_articles" />
+        tools:layout="@layout/fragment_articles" >
+        <action
+            android:id="@+id/action_articlesFragment_to_articleDetiailFragment"
+            app:destination="@id/articleDetiailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainProfileFragment"
         android:name="com.project.plantapp.MainProfileFragment"
@@ -74,5 +78,32 @@
         <action
             android:id="@+id/action_cameraFragment_to_mainProfileFragment"
             app:destination="@id/mainProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetiailFragment"
+        android:name="com.project.plantapp.ArticleDetailFragment"
+        android:label="fragment_article_detiail"
+        tools:layout="@layout/fragment_article_detail" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="author"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="img"
+            app:argType="string" />
+        <argument
+            android:name="avt"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_articleDetiailFragment_to_articlesFragment"
+            app:destination="@id/articlesFragment" />
     </fragment>
 </navigation>
