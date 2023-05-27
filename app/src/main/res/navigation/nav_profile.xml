@@ -27,7 +27,7 @@
             app:destination="@id/articlesFragment" />
         <action
             android:id="@+id/action_mainProfileFragment_to_speciesFragment"
-            app:destination="@id/speciesFragment" />
+            app:destination="@id/speciesIndexFragment" />
         <action
             android:id="@+id/action_mainProfileFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
@@ -66,10 +66,14 @@
         android:label="fragment_articles"
         tools:layout="@layout/fragment_my_articles" />
     <fragment
-        android:id="@+id/speciesFragment"
-        android:name="com.project.plantapp.SpeciesFragment"
+        android:id="@+id/speciesIndexFragment"
+        android:name="com.project.plantapp.SpeciesIndexFragment"
         android:label="fragment_species"
-        tools:layout="@layout/fragment_species" />
+        tools:layout="@layout/fragment_index_species" >
+        <action
+            android:id="@+id/action_speciesFragment_to_speciesCategoryFragment"
+            app:destination="@id/speciesCategoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.project.plantapp.CameraFragment"
@@ -105,5 +109,14 @@
         <action
             android:id="@+id/action_articleDetiailFragment_to_articlesFragment"
             app:destination="@id/articlesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/speciesCategoryFragment"
+        android:name="com.project.plantapp.SpeciesFragment"
+        android:label="fragment_species_category"
+        tools:layout="@layout/fragment_species_category" >
+        <argument
+            android:name="category"
+            app:argType="string" />
     </fragment>
 </navigation>

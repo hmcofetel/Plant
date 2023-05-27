@@ -10,7 +10,12 @@ import com.project.plantapp.R
 import com.project.plantapp.util.Helpers.Companion.sectionsHelper
 import java.util.Locale
 
-class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?):
+interface OnSpecieSIndexItemListener {
+    fun onClickItem(item: String)
+
+}
+
+class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?, val itemListener: OnSpecieSIndexItemListener):
     RecyclerView.Adapter<SpecieIndexAdapter.ViewHolder>(), SectionIndexer {
 
     private val mSections = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
@@ -23,12 +28,16 @@ class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_specie, parent, false)
+            .inflate(R.layout.item_specie_index, parent, false)
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.mTextView.text = mDataArray!![position]
+        val item = mDataArray!![position]
+        holder.mTextView.text = item
+        holder.mTextView.setOnClickListener{
+            itemListener.onClickItem(item)
+        }
     }
 
     override fun getSectionForPosition(position: Int): Int {
