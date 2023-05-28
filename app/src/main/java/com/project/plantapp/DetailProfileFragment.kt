@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.plantapp.adapter.ProfileDetailItemAdapt
 import com.project.plantapp.databinding.FragmentProfileDetailBinding
@@ -17,6 +19,16 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
     private lateinit var _detailList: ArrayList<ProfileDetailItem>
     private lateinit var _adapt: ProfileDetailItemAdapt
     private lateinit var _binding:FragmentProfileDetailBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +50,8 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
 
 
         _binding.profileDetailBackBnt.setOnClickListener{
-            _binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_mainProfileFragment)
+            findNavController().popBackStack()
+//            _binding.root.findNavController().navigate(R.id.mainProfileFragment)
         }
 
 

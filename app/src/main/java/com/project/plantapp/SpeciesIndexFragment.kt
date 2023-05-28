@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,16 +12,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.plantapp.adapter.OnSpecieSIndexItemListener
 import com.project.plantapp.adapter.SpecieIndexAdapter
 import com.project.plantapp.data.DataSpecies
-import com.project.plantapp.databinding.FragmentIndexSpeciesBinding
+import com.project.plantapp.databinding.FragmentSpeciesIndexBinding
 import java.util.Objects
 
 class SpeciesIndexFragment : Fragment() {
-    private lateinit var binding:FragmentIndexSpeciesBinding
+    private lateinit var binding:FragmentSpeciesIndexBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentIndexSpeciesBinding.inflate(inflater, container, false)
+        binding = FragmentSpeciesIndexBinding.inflate(inflater, container, false)
         binding.speciesBackBnt.setOnClickListener{
             findNavController().navigate(R.id.mainProfileFragment)
         }

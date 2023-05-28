@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
@@ -22,6 +23,16 @@ class SpeciesFragment : Fragment() {
     private lateinit var adapter: SpeciesAdapter
     private lateinit var viewModel: SpecieVM
     private val args : SpeciesFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,12 +63,12 @@ class SpeciesFragment : Fragment() {
     private val onImageClickListener  = object : OnSpeciesItemListener {
         override fun onClickItem(item: Species) {
             viewModel.handleItemWhenClicked()
-            binding.apply {
-//                val direction = ArticlesFragmentDirections.actionArticlesFragmentToArticleDetiailFragment(
-//                    item.title, item.author, item.description, item.img, item.avt, item.date
-//                )
-//                findNavController().navigate()
-            }
+
+            val direction = SpeciesFragmentDirections.actionSpeciesCategoryFragmentToSpeciesDetailFragment(
+                    item.title, item.family, item.kingdom, item.description, item.isFavorite, item.image
+            )
+            findNavController().navigate(direction)
+
         }
 
     }
