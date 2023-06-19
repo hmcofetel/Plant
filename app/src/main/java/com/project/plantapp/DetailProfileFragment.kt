@@ -7,18 +7,22 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.plantapp.adapter.ProfileDetailItemAdapt
 import com.project.plantapp.databinding.FragmentProfileDetailBinding
 import com.project.plantapp.model.ProfileDetailItem
+import com.project.plantapp.viewmodel.UserVM
 
 
 class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener {
     private lateinit var _detailList: ArrayList<ProfileDetailItem>
     private lateinit var _adapt: ProfileDetailItemAdapt
     private lateinit var _binding:FragmentProfileDetailBinding
+    private lateinit var _viewModel : UserVM
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,7 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileDetailBinding.inflate(inflater, container, false)
+        _viewModel = ViewModelProvider(this)[UserVM::class.java]
         _detailList = ArrayList()
         _detailList.add(ProfileDetailItem(R.drawable.ic_profile_detail_location,"My Address"))
         _detailList.add(ProfileDetailItem(R.drawable.ic_profile_detail_notification,"Notifications"))
@@ -63,6 +68,8 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
             2 -> _binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_mySpeciesFragment)
             3 -> _binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_myArticlesFragment)
             4 -> _binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_favoriteFragment)
+
+            6 -> _viewModel.signOut()
         }
         requireActivity().findViewById<CoordinatorLayout>(R.id.coordinatorLayout).visibility =View.GONE
 

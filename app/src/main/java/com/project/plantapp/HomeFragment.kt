@@ -1,6 +1,7 @@
 package com.project.plantapp
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -12,66 +13,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.project.plantapp.databinding.FragmentHomeBinding
+import com.project.plantapp.databinding.FragmentMainBinding
+import com.project.plantapp.viewmodel.UserVM
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel : UserVM
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        getPermission()
+        viewModel = ViewModelProvider(this)[UserVM::class.java]
+//        viewModel.getCurrentUser().
 
-        Handler(Looper.getMainLooper()).post{
-            if(!onBoardingIsFinished()){
-                binding.root.findNavController().navigate(R.id.action_homeFragment_to_onBoardingFragment)
-            }
-            else
-            {
-                val navHostChild = childFragmentManager.findFragmentById(R.id.fragmentProfileContainerView) as NavHostFragment
-                val navControllerChild = navHostChild.navController
-                binding.bottomNavigationView.setupWithNavController(navControllerChild)
-            }
-
-//            if (onBoardingIsFinished()) {
-//                findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-//            }else
-//            {
-//                findNavController().navigate(R.id.action_homeFragment_to_onBoardingFragment)
-//            }
-        }
-
-
-
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.fragmentProfileContainerView) as NavHostFragment
+        binding.bottomNavigationView.setupWithNavController(navHostFragment.navController)
         return binding.root
     }
 
-    private fun onBoardingIsFinished(): Boolean{
-        val sharePreferences = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
-        return sharePreferences.getBoolean("finished", false)
-    }
 
-    private fun getPermission(){
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                1
-            )
-
-        }
-    }
 }

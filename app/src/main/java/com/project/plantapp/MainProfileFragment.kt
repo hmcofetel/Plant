@@ -26,6 +26,10 @@ class MainProfileFragment : Fragment() {
         binding.addingNewNavBnt.setOnClickListener{
             findNavController().navigate(R.id.action_mainProfileFragment_to_cameraFragment)
         }
+
+        binding.avtBnt.setOnClickListener{
+            findNavController().navigate(R.id.action_mainProfileFragment_to_detailProfileFragment)
+        }
         // Inflate the layout for this fragment
         return binding.root
     }
