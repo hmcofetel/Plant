@@ -5,33 +5,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.plantapp.data.DataApp
-import com.project.plantapp.model.Articles
+import com.project.plantapp.data.DataSpecies
+import com.project.plantapp.model.SpecieIndex
+import com.project.plantapp.model.Species
 import kotlinx.coroutines.launch
 
-class ArticlesVM: ViewModel() {
-
+class SpeciesIndexVM : ViewModel() {
+    private var _listOfSpeciesIndex: MutableLiveData<List<String>> =  MutableLiveData()
     private var _data = DataApp.getInstance()
-
-    private var _listOfArticles : MutableLiveData<ArrayList<Articles>> =  MutableLiveData()
-    val listOfArticles: LiveData<ArrayList<Articles>>
-        get() = _listOfArticles
+    val listOfSpeciesIndex: LiveData<List<String>>
+    get() = _listOfSpeciesIndex
 
     private var _isLoading: MutableLiveData<Boolean> = MutableLiveData()
     val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    get() = _isLoading
 
 
     fun loadData() {
         _isLoading.postValue(true)
-        viewModelScope.launch {
-            val dataSet = _data.getArticles()
-            _isLoading.postValue(false)
-            _listOfArticles.postValue(dataSet)
-        }
-    }
 
-    fun handleItemWhenClicked() {
-        /// TODO
+        viewModelScope.launch {
+            val dataSet = _data.getSpeciesCategory()
+            _isLoading.postValue(false)
+            _listOfSpeciesIndex.postValue(dataSet)
+        }
     }
 
 

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
     android:layout_marginVertical="10dp"
-    android:layout_marginHorizontal="20dp"
+    android:layout_marginHorizontal="10dp"
     app:cardElevation="20dp"
     android:elevation="10dp">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,10 +42,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:fontFamily="@font/sfprotext_bold"
-            android:paddingStart="15dp"
-            android:text="David Austin, Who Breathed Life Into the Rose, Is Dead at 92"
+            android:paddingHorizontal="15dp"
             android:textColor="#36455A"
             android:textSize="20sp"
+            android:paddingTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,16 +73,16 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     app:cardCornerRadius="25dp"
+                    app:cardElevation="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/iv_avatar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:layout_height="match_parent" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -93,13 +93,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/sfprotext_medium"
-                    android:text="TextView"
                     android:textColor="#36455A"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cv_avatar"
-                    app:layout_constraintTop_toTopOf="@+id/cv_avatar" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_date"
@@ -107,7 +107,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/sfprotext_medium"
-                    android:text="TextView"
                     android:textColor="#A1A8B9"
                     app:layout_constraintEnd_toEndOf="@+id/tv_name"
                     app:layout_constraintHorizontal_bias="0.0"

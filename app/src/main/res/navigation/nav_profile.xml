@@ -98,11 +98,14 @@
             android:name="img"
             app:argType="string" />
         <argument
-            android:name="avt"
-            app:argType="string" />
-        <argument
             android:name="date"
             app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="like"
+            app:argType="boolean" />
 
     </fragment>
     <fragment
@@ -139,6 +142,9 @@
              app:argType="boolean" />
          <argument
              android:name="image"
+             app:argType="string" />
+         <argument
+             android:name="id"
              app:argType="string" />
      </fragment>
 </navigation>

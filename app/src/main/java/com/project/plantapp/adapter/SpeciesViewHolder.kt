@@ -8,10 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 import com.project.plantapp.R
 import com.project.plantapp.model.Species
+import com.project.plantapp.util.GlideApp
 
 class SpeciesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    private var _plantsRef = FirebaseStorage.getInstance().reference
     companion object {
         fun from(parent: ViewGroup): SpeciesViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
@@ -36,8 +40,9 @@ class SpeciesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvKingdom.text = specie.kingdom
         tvFamily.text = specie.family
         tvDescription.text = specie.description
-        
-        Glide.with(itemView.context).load(specie.image).centerCrop().into(imSpecie)
+
+
+        GlideApp.with(itemView.context).load(_plantsRef.child("plants").child(specie.image)).centerCrop().into(imSpecie)
         Log.v("hmcous: ",specie.image)
         itemView.setOnClickListener { callback.onClickItem(specie) }
     }

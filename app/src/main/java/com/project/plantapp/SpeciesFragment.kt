@@ -42,7 +42,7 @@ class SpeciesFragment : Fragment() {
         viewModel = ViewModelProvider(this)[SpecieVM::class.java]
 
         binding.speciesCategoryBackBnt.setOnClickListener{
-            findNavController().navigate(R.id.speciesIndexFragment)
+            findNavController().popBackStack()
         }
 
         setUpRecyclerView()
@@ -56,7 +56,7 @@ class SpeciesFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        binding.rvSpecies.layoutManager = LinearLayoutManager(context);
+        binding.rvSpecies.layoutManager = LinearLayoutManager(context)
         adapter = SpeciesAdapter(onImageClickListener)
     }
 
@@ -65,7 +65,7 @@ class SpeciesFragment : Fragment() {
             viewModel.handleItemWhenClicked()
 
             val direction = SpeciesFragmentDirections.actionSpeciesCategoryFragmentToSpeciesDetailFragment(
-                    item.title, item.family, item.kingdom, item.description, item.isFavorite, item.image
+                    item.title, item.family, item.kingdom, item.description, item.isFavorite, item.image, item.id
             )
             findNavController().navigate(direction)
 

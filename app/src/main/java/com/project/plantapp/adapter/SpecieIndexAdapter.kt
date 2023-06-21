@@ -15,7 +15,7 @@ interface OnSpecieSIndexItemListener {
 
 }
 
-class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?, val itemListener: OnSpecieSIndexItemListener):
+class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?, private val itemListener: OnSpecieSIndexItemListener):
     RecyclerView.Adapter<SpecieIndexAdapter.ViewHolder>(), SectionIndexer {
 
     private val mSections = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
@@ -73,7 +73,6 @@ class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?, val itemLis
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mTextView: TextView
-
         init {
             mTextView = itemView.findViewById(R.id.tv_alphabet)
         }

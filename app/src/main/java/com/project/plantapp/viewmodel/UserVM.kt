@@ -2,12 +2,20 @@ package com.project.plantapp.viewmodel
 
 
 import android.net.Uri
+import android.util.Log
 import com.google.firebase.auth.FirebaseUser
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.flow.merge
 import kotlin.properties.Delegates
+
+
 
 
 class UserVM : ViewModel() {
@@ -20,6 +28,7 @@ class UserVM : ViewModel() {
         get() = _isMessageEvent
 
     private var _auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var _db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun getCurrentUser(): FirebaseUser? {
         return _auth.currentUser
@@ -56,6 +65,7 @@ class UserVM : ViewModel() {
 
         _auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    _isMessageEvent.postValue("Đã đăng nhập")
                     _isSuccessEvent.postValue(true)
                 } else {
                     _isMessageEvent.postValue("Sai email hoặc mật khẩu")
@@ -76,10 +86,43 @@ class UserVM : ViewModel() {
                     _isSuccessEvent.postValue(true)
 
                 } else {
-                    _isMessageEvent.postValue(task.exception.toString())
+                    _isMessageEvent.postValue(task.exception?.message)
                 }
             }
+
     }
+
+    fun addFavorite(id : String, category: String)
+    {
+        _auth.currentUser?.let {
+            _db.collection("users").document(it.uid).set(
+                hashMapOf(
+                    "favorite" to
+                            hashMapOf(
+                                category to FieldValue.arrayUnion(id)
+                            )
+                ), SetOptions.merge()
+            )
+        }
+    }
+
+
+    fun removeFavorite(id : String, category: String)
+    {
+        _auth.currentUser?.let {
+            _db.collection("users").document(it.uid).set(
+                hashMapOf(
+                    "favorite" to
+                            hashMapOf(
+                                category to FieldValue.arrayRemove(id)
+                            )
+                ), SetOptions.merge()
+            )
+        }
+    }
+
+
+
     fun signOut(){
         _auth.signOut()
     }
@@ -94,14 +137,36 @@ class UserVM : ViewModel() {
         return true
     }
 
-    private fun getUserProfile() {
+    fun updateProfile(firstName: String, lastName: String)
+    {
+        val profileUpdates = UserProfileChangeRequest.Builder()
+        profileUpdates.displayName = "$lastName $firstName"
+        _auth.currentUser?.updateProfile(profileUpdates.build())
+        createUserFireStore(firstName, lastName)
+    }
+
+    private fun createUserFireStore(firstName: String, lastName: String) {
         _auth.currentUser?.let {
-            name = it.displayName.toString()
-            email = it.email.toString()
-            photoUrl = it.photoUrl!!
-            emailVerified = it.isEmailVerified
+            Log.v("hmco: ", it.email.toString())
+            Log.v("hmco: ", it.displayName.toString())
+            Log.v("hmco: ", it.uid)
+            Log.v("hmco: ", it.photoUrl.toString())
+            Log.v("hmco: ", firstName)
+            Log.v("hmco: ", lastName)
 
+            val profile = hashMapOf(
+                "email" to it.email,
+                "first" to firstName,
+                "last" to lastName,
+            )
 
+            val favorite = hashMapOf(
+                "articles" to emptyList<String>(),
+                "species" to emptyList()
+            )
+            _db.collection("users").document(it.uid).set(hashMapOf("profile" to profile))
+            _db.collection("users").document(it.uid).set(hashMapOf("favorite" to favorite),
+                SetOptions.merge())
         }
     }
 

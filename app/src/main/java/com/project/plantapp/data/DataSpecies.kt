@@ -48,7 +48,7 @@ object DataSpecies {
 
         for (i in 0 until dataSpecies.length()){
             listSpecies += Species(
-                dataSpecies.getJSONObject(i).getInt("id")
+                dataSpecies.getJSONObject(i).getString("id")
                 ,dataSpecies.getJSONObject(i).getString("author")
                 ,dataSpecies.getJSONObject(i).getString("width")
                 ,dataSpecies.getJSONObject(i).getString("height")

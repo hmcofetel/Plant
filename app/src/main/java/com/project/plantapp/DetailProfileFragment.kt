@@ -1,5 +1,6 @@
 package com.project.plantapp
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ActivityNavigator
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.plantapp.adapter.ProfileDetailItemAdapt
@@ -69,7 +72,12 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
             3 -> _binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_myArticlesFragment)
             4 -> _binding.root.findNavController().navigate(R.id.action_detailProfileFragment_to_favoriteFragment)
 
-            6 -> _viewModel.signOut()
+            6 ->{
+                _viewModel.signOut()
+                requireActivity().findNavController(R.id.fragmentPlantContainerView).navigate(R.id.mainFragment)
+            }
+
+
         }
         requireActivity().findViewById<CoordinatorLayout>(R.id.coordinatorLayout).visibility =View.GONE
 

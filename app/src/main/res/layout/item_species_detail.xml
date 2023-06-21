@@ -84,8 +84,6 @@
                     android:id="@+id/kingdomContent"
                     android:fontFamily="@font/sfprotext_regular"
                     android:textColor="#495566"
-                    android:text="Plantae"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +113,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/familyContent"
-                    android:text="Cactaceae"
                     android:fontFamily="@font/sfprotext_regular"
                     android:textColor="#495566"
                     android:layout_width="wrap_content"
@@ -147,11 +144,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/descriptionContent"
-                    android:text="Cactus spines are produced from specialized structures..."
                     android:fontFamily="@font/sfprotext_regular"
                     android:textColor="#495566"
                     android:layout_width="180dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="72dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/descriptionTitle"
                     />

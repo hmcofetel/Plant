@@ -1,7 +1,7 @@
 package com.project.plantapp.model
 
 data class Species(
-    val id: Int,
+    val id: String,
     val title: String,
     val kingdom: String,
     val family: String,

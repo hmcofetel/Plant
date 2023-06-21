@@ -1,6 +1,7 @@
 package com.project.plantapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,15 +35,10 @@ class SignupFragment : Fragment() {
         binding = FragmentSignupBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[UserVM::class.java]
         binding.signInBnt.setOnClickListener {
-            val firstName = binding.signUpFirstName.text.toString()
-            val lastName = binding.signUpLastName.text.toString()
             val email = binding.signUpEmail.text.toString()
             val password = binding.signUpPassword.text.toString()
             val confirmPassword = binding.signUpConfirmPassword.text.toString()
-
-            viewModel.createUserWithEmailAndPassword(email, password, confirmPassword)
-
-
+            viewModel.createUserWithEmailAndPassword(email, password, confirmPassword )
 
             listenerSuccessEvent()
             listenerErrorEvent()
@@ -55,7 +51,10 @@ class SignupFragment : Fragment() {
     private fun listenerSuccessEvent() {
         viewModel.isSuccessEvent.observe(viewLifecycleOwner) { isSuccess ->
             if (isSuccess) {
-                findNavController().popBackStack()
+                val firstName = binding.signUpFirstName.text.toString()
+                val lastName = binding.signUpLastName.text.toString()
+                viewModel.updateProfile(firstName,lastName)
+                findNavController().navigate(R.id.homeFragment)
             }
         }
     }

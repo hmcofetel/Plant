@@ -1,15 +1,11 @@
 package com.project.plantapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResult
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,8 +19,17 @@ import com.project.plantapp.viewmodel.ArticlesVM
 class ArticlesFragment : Fragment() {
     private lateinit var binding: FragmentArticlesBinding
     private lateinit var adapter: ArticleAdapter
-    private lateinit var viewModel: ArticlesVM
+    private lateinit var articlesVM: ArticlesVM
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,14 +37,14 @@ class ArticlesFragment : Fragment() {
     ): View {
 
         binding = FragmentArticlesBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[ArticlesVM::class.java]
+        articlesVM = ViewModelProvider(this)[ArticlesVM::class.java]
         binding.articlesBackBnt.setOnClickListener{
             findNavController().navigate(R.id.mainProfileFragment)
         }
 
         setUpRecyclerView()
         binding.rvArticles.adapter = adapter
-        viewModel.loadData()
+        articlesVM.loadData()
 
         registerDataEvent()
         registerLoadingView()
@@ -48,16 +53,16 @@ class ArticlesFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        binding.rvArticles.layoutManager = LinearLayoutManager(context);
+        binding.rvArticles.layoutManager = LinearLayoutManager(context)
         adapter = ArticleAdapter(onImageClickListener)
     }
 
     private val onImageClickListener  = object : OnArticleItemListener {
         override fun onClickItem(item: Articles) {
-            viewModel.handleItemWhenClicked()
+            articlesVM.handleItemWhenClicked()
             binding.apply {
                 val direction = ArticlesFragmentDirections.actionArticlesFragmentToArticleDetiailFragment(
-                    item.title, item.author, item.description, item.img, item.avt, item.date
+                    item.title, item.author, item.description, item.img, item.date, item.id, item.like
                 )
                 findNavController().navigate(direction)
             }
@@ -67,7 +72,7 @@ class ArticlesFragment : Fragment() {
 
 
     private fun registerDataEvent() {
-        viewModel.listOfArticles.observe(requireActivity(), Observer { data ->
+        articlesVM.listOfArticles.observe(requireActivity(), Observer { data ->
             run {
                 adapter.submitList(data)
             }
@@ -75,7 +80,7 @@ class ArticlesFragment : Fragment() {
     }
 
     private fun registerLoadingView() {
-        viewModel.isLoading.observe(requireActivity()) { isLoading ->
+        articlesVM.isLoading.observe(requireActivity()) { isLoading ->
             run {
                 binding.progressBar.visibility =
                     if (isLoading) View.VISIBLE else
