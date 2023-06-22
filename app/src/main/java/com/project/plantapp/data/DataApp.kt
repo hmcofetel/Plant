@@ -27,7 +27,6 @@ class DataApp private constructor() {
 
     suspend fun getArticles(): ArrayList<Articles> {
         val articles = ArrayList<Articles>()
-        val arrayFavorite = getFavorite("articles")
         _articles.get().addOnSuccessListener { result ->
             val sfd = SimpleDateFormat("dd-MM-yyyy", Locale("VN"))
             for (document in result) {
@@ -40,11 +39,9 @@ class DataApp private constructor() {
                         sfd.format(timestamp.toDate()).toString(),
                         document.data["img"] as String,
                         document.data["content"] as String,
-                        arrayFavorite.contains(document.id)
+                        false
                     )
                 )
-
-                Log.v("hmco: ", arrayFavorite.contains(document.id).toString())
             }
         }.await()
 
@@ -90,19 +87,9 @@ class DataApp private constructor() {
         return plants
     }
 
-    suspend fun getSpeciesFavorite(): ArrayList<Species> {
-        var speciesId: ArrayList<*> = ArrayList<String>()
+    suspend fun getFavoriteSpecies(): ArrayList<Species> {
         val plants = ArrayList<Species>()
-        _auth.currentUser?.let {
-            _users.document(it.uid).get().addOnSuccessListener { document ->
-                val favMap = document.data?.get("favorite") as HashMap<*, *>
-                speciesId = favMap["species"] as ArrayList<*>
-            }.await()
-        }
-
-
-        Log.v("hmco: ###########", speciesId.size.toString())
-        for (id in speciesId) {
+        for (id in getFavorite("species")) {
             _plants.document(id as String).get().addOnSuccessListener {
                 if (it.data != null) {
                     plants.add(
@@ -121,6 +108,28 @@ class DataApp private constructor() {
         }
 
         return plants
+    }
+
+    suspend fun getFavoriteArticles(): ArrayList<Articles> {
+        val articles = ArrayList<Articles>()
+        for (id in getFavorite("articles")) {
+            _articles.document(id as String).get().addOnSuccessListener {
+                val sfd = SimpleDateFormat("dd-MM-yyyy", Locale("VN"))
+                val timestamp = it.data!!["date"] as com.google.firebase.Timestamp
+                articles.add(
+                    Articles(
+                        it.id,
+                        it.data!!["title"] as String,
+                        it.data!!["author"] as String,
+                        sfd.format(timestamp.toDate()).toString(),
+                        it.data!!["img"] as String,
+                        it.data!!["content"] as String,
+                        true
+                    )
+                )
+            }.await()
+        }
+        return articles
     }
 
 

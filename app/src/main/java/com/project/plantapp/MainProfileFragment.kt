@@ -5,16 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.project.plantapp.databinding.FragmentProfileMainBinding
+import com.project.plantapp.viewmodel.UserVM
 
 class MainProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileMainBinding
+    private lateinit var userVM: UserVM
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        userVM = ViewModelProvider(this)[UserVM::class.java]
         binding = FragmentProfileMainBinding.inflate(inflater, container, false)
+
         binding.articlesNavBnt.setOnClickListener{
             findNavController().navigate(R.id.action_mainProfileFragment_to_articlesFragment)
         }
@@ -30,6 +35,8 @@ class MainProfileFragment : Fragment() {
         binding.avtBnt.setOnClickListener{
             findNavController().navigate(R.id.action_mainProfileFragment_to_detailProfileFragment)
         }
+
+        binding.tvUsernameHome.text = userVM.getProfile()?.get("name") as CharSequence?
         // Inflate the layout for this fragment
         return binding.root
     }

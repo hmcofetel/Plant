@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyFavoriteFragment">
+    tools:context=".MyFavoritePlantFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout11"
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:text="My Favorites"
+            android:text="Favorites Plants"
             android:textColor="#47734D"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"

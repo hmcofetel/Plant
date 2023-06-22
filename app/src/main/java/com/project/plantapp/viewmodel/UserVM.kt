@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -16,10 +17,9 @@ import kotlinx.coroutines.flow.merge
 import kotlin.properties.Delegates
 
 
-
-
 class UserVM : ViewModel() {
     private var _isSuccessEvent: MutableLiveData<Boolean> = MutableLiveData()
+    private var _profile : Map<*, *>? = null
     val isSuccessEvent: LiveData<Boolean>
         get() = _isSuccessEvent
 
@@ -34,12 +34,6 @@ class UserVM : ViewModel() {
         return _auth.currentUser
     }
 
-
-    private lateinit var name: String
-    private lateinit var email: String
-    private lateinit var photoUrl: Uri
-    private var emailVerified by Delegates.notNull<Boolean>()
-    private lateinit var uid: String
 
 
     private fun checkEmailAndPassword(email: String, password: String): Boolean {
@@ -64,15 +58,14 @@ class UserVM : ViewModel() {
         if (!checkEmailAndPassword(email, password)) return
 
         _auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    _isMessageEvent.postValue("Đã đăng nhập")
-                    _isSuccessEvent.postValue(true)
-                } else {
-                    _isMessageEvent.postValue("Sai email hoặc mật khẩu")
-                }
+            if (task.isSuccessful) {
+                _isMessageEvent.postValue("Đã đăng nhập")
+                _isSuccessEvent.postValue(true)
+            } else {
+                _isMessageEvent.postValue("Sai email hoặc mật khẩu")
             }
+        }
     }
-
 
 
     fun createUserWithEmailAndPassword(email: String, password: String, confrim_password: String) {
@@ -81,52 +74,61 @@ class UserVM : ViewModel() {
         if (!checkConfirmPassword(password, confrim_password)) return
 
         _auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    _isMessageEvent.postValue("Tạo tài khoản thành công")
-                    _isSuccessEvent.postValue(true)
+            if (task.isSuccessful) {
+                _isMessageEvent.postValue("Tạo tài khoản thành công")
+                _isSuccessEvent.postValue(true)
 
-                } else {
-                    _isMessageEvent.postValue(task.exception?.message)
-                }
+            } else {
+                _isMessageEvent.postValue(task.exception?.message)
             }
+        }
 
     }
 
-    fun addFavorite(id : String, category: String)
-    {
+    fun addFavorite(id: String, category: String) {
         _auth.currentUser?.let {
             _db.collection("users").document(it.uid).set(
                 hashMapOf(
-                    "favorite" to
-                            hashMapOf(
-                                category to FieldValue.arrayUnion(id)
-                            )
+                    "favorite" to hashMapOf(
+                        category to FieldValue.arrayUnion(id)
+                    )
                 ), SetOptions.merge()
             )
         }
     }
 
 
-    fun removeFavorite(id : String, category: String)
-    {
+    fun removeFavorite(id: String, category: String) {
         _auth.currentUser?.let {
             _db.collection("users").document(it.uid).set(
                 hashMapOf(
-                    "favorite" to
-                            hashMapOf(
-                                category to FieldValue.arrayRemove(id)
-                            )
+                    "favorite" to hashMapOf(
+                        category to FieldValue.arrayRemove(id)
+                    )
                 ), SetOptions.merge()
             )
         }
     }
 
+    fun getProfile(): Map<*, *>?
+    {
+        if (_profile != null)
+            return _profile as Map<*, *>
+
+        _auth.currentUser?.let {
+            _profile = mapOf(
+                "uid" to it.uid,
+                "email" to it.email,
+                "name" to it.displayName
+            )
+        }
+        return _profile
+    }
 
 
-    fun signOut(){
+    fun signOut() {
         _auth.signOut()
     }
-
 
 
     private fun checkConfirmPassword(password: String, confrim_password: String): Boolean {
@@ -137,23 +139,21 @@ class UserVM : ViewModel() {
         return true
     }
 
-    fun updateProfile(firstName: String, lastName: String)
-    {
-        val profileUpdates = UserProfileChangeRequest.Builder()
-        profileUpdates.displayName = "$lastName $firstName"
-        _auth.currentUser?.updateProfile(profileUpdates.build())
+    fun updateProfile(firstName: String, lastName: String) {
+//        val profileUpdates = UserProfileChangeRequest.Builder()
+//        profileUpdates.displayName = "$lastName $firstName"
+//        _auth.currentUser?.updateProfile(profileUpdates.build())
+
+        val profileUpdates = userProfileChangeRequest {
+            displayName = "$lastName $firstName"
+//            photoUri = Uri.parse("https://example.com/jane-q-user/profile.jpg")
+        }
+        _auth.currentUser?.updateProfile(profileUpdates)
         createUserFireStore(firstName, lastName)
     }
 
     private fun createUserFireStore(firstName: String, lastName: String) {
         _auth.currentUser?.let {
-            Log.v("hmco: ", it.email.toString())
-            Log.v("hmco: ", it.displayName.toString())
-            Log.v("hmco: ", it.uid)
-            Log.v("hmco: ", it.photoUrl.toString())
-            Log.v("hmco: ", firstName)
-            Log.v("hmco: ", lastName)
-
             val profile = hashMapOf(
                 "email" to it.email,
                 "first" to firstName,
@@ -161,12 +161,12 @@ class UserVM : ViewModel() {
             )
 
             val favorite = hashMapOf(
-                "articles" to emptyList<String>(),
-                "species" to emptyList()
+                "articles" to emptyList<String>(), "species" to emptyList()
             )
             _db.collection("users").document(it.uid).set(hashMapOf("profile" to profile))
-            _db.collection("users").document(it.uid).set(hashMapOf("favorite" to favorite),
-                SetOptions.merge())
+            _db.collection("users").document(it.uid).set(
+                hashMapOf("favorite" to favorite), SetOptions.merge()
+            )
         }
     }
 

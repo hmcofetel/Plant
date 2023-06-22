@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MySpeciesFragment">
+    tools:context=".MyFavoriteArticlesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:text="My Species"
+            android:text="My Favorite Articles"
             android:textColor="#47734D"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,6 +43,15 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favorite_articles"
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:paddingTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

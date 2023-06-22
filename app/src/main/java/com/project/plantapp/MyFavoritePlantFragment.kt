@@ -11,19 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.project.plantapp.adapter.ArticleAdapter
 import com.project.plantapp.adapter.FavoriteSpeciesAdapter
-import com.project.plantapp.adapter.OnArticleItemListener
 import com.project.plantapp.adapter.OnSpeciesFavoriteItemListener
-import com.project.plantapp.databinding.FragmentMyFavoriteBinding
-import com.project.plantapp.model.Articles
-import com.project.plantapp.model.FavoriteSpeciesVM
+import com.project.plantapp.databinding.FragmentMyFavoriteSpeciesBinding
+import com.project.plantapp.viewmodel.FavoriteSpeciesVM
 import com.project.plantapp.model.Species
-import com.project.plantapp.viewmodel.ArticlesVM
 
-class MyFavoriteFragment : Fragment() {
-    private lateinit var binding: FragmentMyFavoriteBinding
+class MyFavoritePlantFragment : Fragment() {
+    private lateinit var binding: FragmentMyFavoriteSpeciesBinding
     private lateinit var adapter: FavoriteSpeciesAdapter
     private lateinit var speciesVM: FavoriteSpeciesVM
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +37,7 @@ class MyFavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMyFavoriteBinding.inflate(inflater, container, false)
+        binding = FragmentMyFavoriteSpeciesBinding.inflate(inflater, container, false)
         speciesVM = ViewModelProvider(this)[FavoriteSpeciesVM::class.java]
         binding.favoriteBackBnt.setOnClickListener {
             findNavController().popBackStack()
@@ -68,7 +63,7 @@ class MyFavoriteFragment : Fragment() {
             speciesVM.handleItemWhenClicked()
             binding.apply {
                 val direction =
-                    MyFavoriteFragmentDirections.actionMyFavoriteFragmentToSpeciesDetailFragment(
+                    MyFavoritePlantFragmentDirections.actionMyFavoriteFragmentToSpeciesDetailFragment(
                         item.title,
                         item.family,
                         item.kingdom,
