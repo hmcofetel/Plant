@@ -51,7 +51,11 @@
         android:id="@+id/myFavoriteFragment"
         android:name="com.project.plantapp.MyFavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_my_favorite" />
+        tools:layout="@layout/fragment_my_favorite" >
+         <action
+             android:id="@+id/action_myFavoriteFragment_to_speciesDetailFragment"
+             app:destination="@id/speciesDetailFragment" />
+     </fragment>
      <fragment
         android:id="@+id/mySpeciesFragment"
         android:name="com.project.plantapp.MySpeciesFragment"
