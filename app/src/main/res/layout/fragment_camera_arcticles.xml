@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CameraFragment">
+    tools:context=".CameraArcticles">
 
 
     <androidx.camera.view.PreviewView
-        android:id="@+id/viewFinder"
+        android:id="@+id/viewFinderArticles"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -30,7 +30,7 @@
             android:layout_gravity="center">
             <Button
                 android:backgroundTint="#47734D"
-                android:id="@+id/image_capture_button"
+                android:id="@+id/articles_image_capture_button"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"/>
@@ -41,7 +41,7 @@
 
 
     <ImageView
-        android:id="@+id/flipCamera"
+        android:id="@+id/aricles_flip_camera"
         android:background="@drawable/ic_flip_camera"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -54,7 +54,7 @@
 
 
     <ImageView
-        android:id="@+id/cameraFragmentBackBnt"
+        android:id="@+id/cameraArticleBackBnt"
         android:layout_width="39dp"
         android:layout_height="43dp"
         android:layout_marginStart="36dp"
@@ -98,7 +98,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_marginHorizontal="5dp"
-            android:id="@+id/bottomSlide"
+            android:id="@+id/bottomSlideArticles"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
             android:layout_height="800dp"
@@ -122,11 +122,11 @@
                     android:layout_marginTop="100dp">
                     <ImageView
                         android:scaleType="centerCrop"
-                        android:id="@+id/im_review_plant"
+                        android:id="@+id/im_review_articles"
                         android:layout_width="300dp"
                         android:layout_height="300dp"
 
-/>
+                        />
 
                 </androidx.cardview.widget.CardView>
 
@@ -155,7 +155,7 @@
                 </TextView>
 
                 <ImageView
-                    android:id="@+id/done_add_plant_bnt"
+                    android:id="@+id/done_add_articles_bnt"
                     android:background="@drawable/baseline_done_24"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -177,12 +177,12 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginBottom="300dp">
                     <EditText
-                        android:id="@+id/et_name_plant"
+                        android:id="@+id/et_title_articles"
                         android:textColor="#12121D"
                         android:fontFamily="@font/sfprotext_semibold"
                         android:paddingHorizontal="10dp"
-                        android:hint="Name"
-                        android:layout_width="190dp"
+                        android:hint="Title"
+                        android:layout_width="340dp"
                         android:layout_height="50dp"
                         android:background="#00FFFFFF"
                         android:autofillHints="Name of plants"
@@ -195,83 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00FFFFFF"
-                    app:strokeColor="#779587"
-                    app:strokeWidth="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="300dp">
-                    <EditText
-                        android:id="@+id/et_type_plant"
-                        android:textColor="#12121D"
-                        android:paddingStart="10dp"
-                        android:hint="Type"
-                        android:fontFamily="@font/sfprotext_semibold"
-                        android:paddingHorizontal="10dp"
-                        android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:background="#00FFFFFF"
-                        android:autofillHints="Name of plants"
-                        android:inputType="text"/>
-                </com.google.android.material.card.MaterialCardView>
-
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00FFFFFF"
-                    app:strokeColor="#779587"
-                    app:strokeWidth="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:cardElevation="0dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="230dp">
-                    <EditText
-                        android:id="@+id/et_kingdom_plant"
-                        android:textColor="#12121D"
-                        android:fontFamily="@font/sfprotext_semibold"
-                        android:paddingHorizontal="10dp"
-                        android:hint="Kingdom"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:background="#00FFFFFF"
-                        android:autofillHints="Name of plants"
-                        android:inputType="text" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00FFFFFF"
-                    app:strokeColor="#779587"
-                    app:strokeWidth="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="230dp">
-                    <EditText
-                        android:id="@+id/et_family_plant"
-                        android:textColor="#12121D"
-                        android:paddingStart="10dp"
-                        android:fontFamily="@font/sfprotext_semibold"
-                        android:hint="Family"
-                        android:paddingHorizontal="10dp"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:background="#00FFFFFF"
-                        android:autofillHints="Name of plants"
-                        android:inputType="text"/>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#00FFFFFF"
-                    android:layout_marginTop="590dp"
+                    android:layout_marginTop="530dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -279,15 +203,15 @@
                     app:strokeWidth="1dp">
 
                     <EditText
-                        android:id="@+id/et_description_plant"
+                        android:id="@+id/et_description_articles"
                         android:paddingVertical="10dp"
                         android:textColor="#12121D"
                         android:fontFamily="@font/sfprotext_semibold"
                         android:layout_width="340dp"
-                        android:layout_height="150dp"
+                        android:layout_height="250dp"
                         android:autofillHints="Name of plants"
                         android:background="#00FFFFFF"
-                        android:hint="Family"
+                        android:hint="Description"
                         android:gravity="start"
                         android:inputType="text"
                         android:paddingHorizontal="10dp" />

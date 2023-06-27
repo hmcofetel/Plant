@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.plantapp.adapter.OnSpecieSIndexItemListener
 import com.project.plantapp.adapter.SpecieIndexAdapter
 import com.project.plantapp.data.DataApp
@@ -41,6 +42,10 @@ class SpeciesIndexFragment : Fragment() {
         _binding = FragmentSpeciesIndexBinding.inflate(inflater, container, false)
         _adapter = SpecieIndexAdapter(ArrayList(),onSpecieItemListener)
         viewModel = ViewModelProvider(this)[SpeciesIndexVM::class.java]
+
+        requireActivity().findViewById<FloatingActionButton>(R.id.cameraAddNew).setOnClickListener{
+            findNavController().navigate(R.id.cameraFragment)
+        }
         _binding.speciesBackBnt.setOnClickListener{
             findNavController().popBackStack()
         }
@@ -59,7 +64,7 @@ class SpeciesIndexFragment : Fragment() {
 
         viewModel.listOfSpeciesIndex.observe(viewLifecycleOwner) {
             Log.v("hmco: ", "reload")
-            _binding.rvSpecies.adapter = SpecieIndexAdapter(it as ArrayList<String>?,onSpecieItemListener)
+            _binding.rvSpecies.adapter = SpecieIndexAdapter(it ,onSpecieItemListener)
         }
 
         return _binding.root
@@ -68,10 +73,13 @@ class SpeciesIndexFragment : Fragment() {
 
     private val onSpecieItemListener  = object : OnSpecieSIndexItemListener {
         override fun onClickItem(item: String) {
+            Log.v("hmco: ", item + "is Clicked !")
             val direction  = SpeciesIndexFragmentDirections.actionSpeciesFragmentToSpeciesCategoryFragment(item)
             findNavController().navigate(direction)
         }
     }
+
+
 
 
 }

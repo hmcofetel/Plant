@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.plantapp.adapter.ArticleAdapter
 import com.project.plantapp.adapter.OnArticleItemListener
 import com.project.plantapp.databinding.FragmentArticlesBinding
@@ -40,6 +42,9 @@ class ArticlesFragment : Fragment() {
         articlesVM = ViewModelProvider(this)[ArticlesVM::class.java]
         binding.articlesBackBnt.setOnClickListener{
             findNavController().navigate(R.id.mainProfileFragment)
+        }
+        requireActivity().findViewById<FloatingActionButton>(R.id.cameraAddNew).setOnClickListener{
+            findNavController().navigate(R.id.cameraArcticles)
         }
 
         setUpRecyclerView()

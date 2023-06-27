@@ -33,7 +33,6 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[UserVM::class.java]
 
-        getPermission()
         Handler(Looper.getMainLooper()).post {
             if (!onBoardingIsFinished()) {
                 binding.root.findNavController()
@@ -41,7 +40,6 @@ class MainFragment : Fragment() {
             } else if (viewModel.getCurrentUser() == null) {
                 findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             } else {
-                Log.v("check: ","==========")
                 findNavController().navigate(R.id.action_mainFragment_to_homeFragment)
             }
 
@@ -55,19 +53,4 @@ class MainFragment : Fragment() {
         return sharePreferences.getBoolean("finished", false)
     }
 
-    private fun getPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf(
-                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ), 1
-            )
-
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package com.project.plantapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,9 +50,7 @@ class SpeciesFragment : Fragment() {
         binding.rvSpecies.adapter = adapter
         binding.titleSpecies.text = args.category
         viewModel.loadData(args.category)
-
         registerDataEvent()
-
         return binding.root
     }
 
@@ -75,10 +74,13 @@ class SpeciesFragment : Fragment() {
 
 
     private fun registerDataEvent() {
-        viewModel.listOfArticles.observe(requireActivity(), Observer { data ->
+        viewModel.listOfArticles.observe(viewLifecycleOwner, Observer { data ->
+            Log.v("hmcous: ", "quering...")
             run {
+//                adapter.submitList(null)
                 adapter.submitList(data)
             }
+            Log.v("hmcous: ", "quering...")
         })
     }
 

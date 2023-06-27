@@ -15,15 +15,16 @@ interface OnSpecieSIndexItemListener {
 
 }
 
-class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?, private val itemListener: OnSpecieSIndexItemListener):
+class SpecieIndexAdapter(private var mDataArray: ArrayList<String>?, private val itemListener: OnSpecieSIndexItemListener):
     RecyclerView.Adapter<SpecieIndexAdapter.ViewHolder>(), SectionIndexer {
 
     private val mSections = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
     private var sectionsTranslator = HashMap<Int, Int>()
     private var mSectionPositions: ArrayList<Int>? = null
+    private var _mDataArray = mDataArray
 
     override fun getItemCount(): Int {
-        return mDataArray?.size ?: 0
+        return _mDataArray?.size ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,7 +34,7 @@ class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?, private val
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mDataArray!![position]
+        val item = _mDataArray!![position]
         holder.mTextView.text = item
         holder.mTextView.setOnClickListener{
             itemListener.onClickItem(item)
@@ -50,9 +51,9 @@ class SpecieIndexAdapter(private val mDataArray: ArrayList<String>?, private val
         mSectionPositions = ArrayList()
         run {
             var i = 0
-            val size = mDataArray!!.size
+            val size = _mDataArray!!.size
             while (i < size) {
-                val section = mDataArray[i][0].toString().uppercase(Locale.getDefault())
+                val section = _mDataArray!![i][0].toString().uppercase(Locale.getDefault())
                 if (!sections.contains(section)) {
                     sections.add(section)
                     mSectionPositions?.add(i)

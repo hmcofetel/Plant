@@ -35,10 +35,12 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[UserVM::class.java]
-//        viewModel.getCurrentUser().
-
         val navHostFragment = childFragmentManager.findFragmentById(R.id.fragmentProfileContainerView) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHostFragment.navController)
+
+        binding.cameraAddNew.setOnClickListener{
+            navHostFragment.navController.navigate(R.id.cameraFragment)
+        }
         return binding.root
     }
 

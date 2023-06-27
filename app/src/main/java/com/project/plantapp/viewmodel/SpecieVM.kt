@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.plantapp.data.DataApp
-import com.project.plantapp.data.DataSpecies
 import com.project.plantapp.model.Species
 import kotlinx.coroutines.launch
 

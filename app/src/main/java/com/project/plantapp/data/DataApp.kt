@@ -1,11 +1,19 @@
 package com.project.plantapp.data
 
+import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
 import com.project.plantapp.model.Articles
 import com.project.plantapp.model.Species
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -24,6 +32,54 @@ class DataApp private constructor() {
     private var _plants = _db.collection("plants")
     private var _users = _db.collection("users")
     private var _auth = FirebaseAuth.getInstance()
+    private var _stograte =  FirebaseStorage.getInstance()
+
+    fun addPlant(name: String, type: String, kingdom: String, family: String, description : String, nameImage: String, image: Bitmap?){
+        if (image == null)
+            return
+        val plantRef = _stograte.reference.child("plants").child(nameImage)
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG,100, baos)
+        val data = baos.toByteArray()
+        plantRef.putBytes(data)
+        val plant = hashMapOf(
+            "description" to description,
+            "family" to family,
+            "img" to nameImage,
+            "kingdom" to kingdom,
+            "name" to name
+        )
+
+        _plants.add(plant).addOnSuccessListener {
+            _species.document(type).set(
+                hashMapOf(
+                    "ids" to FieldValue.arrayUnion(it.id)
+                ), SetOptions.merge()
+            )
+        }
+
+    }
+
+    fun addArticle (title: String, content: String,nameImage: String , image: Bitmap?){
+        if (image == null)
+            return
+        val plantRef = _stograte.reference.child("articles").child(nameImage)
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG,100, baos)
+        val data = baos.toByteArray()
+        plantRef.putBytes(data)
+
+
+        _articles.document().set(
+            hashMapOf(
+                "author" to _auth.currentUser?.uid,
+                "content" to content,
+                "date" to FieldValue.serverTimestamp(),
+                "img" to nameImage,
+                "title" to title
+            )
+        )
+    }
 
     suspend fun getArticles(): ArrayList<Articles> {
         val articles = ArrayList<Articles>()
@@ -62,6 +118,7 @@ class DataApp private constructor() {
     }
 
     suspend fun getSpecies(category: String): ArrayList<Species> {
+        Log.v("hmcous: " , "Getting Species")
         var speciesId: ArrayList<*> = ArrayList<String>()
         val plants = ArrayList<Species>()
         _species.document(category).get().addOnSuccessListener { document ->
@@ -84,6 +141,7 @@ class DataApp private constructor() {
                 }
             }.await()
         }
+        Log.v("hmcous: " , "Getting done")
         return plants
     }
 
@@ -146,5 +204,8 @@ class DataApp private constructor() {
         return favoriteArray
 
     }
+
+
+
 
 }

@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_mainProfileFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_cameraArcticles"
+            app:destination="@id/cameraArcticles" />
     </fragment>
     <fragment
         android:id="@+id/detailProfileFragment"
@@ -151,4 +154,9 @@
              android:name="id"
              app:argType="string" />
      </fragment>
+    <fragment
+        android:id="@+id/cameraArcticles"
+        android:name="com.project.plantapp.CameraArcticles"
+        android:label="fragment_camera_arcticles"
+        tools:layout="@layout/fragment_camera_arcticles" />
 </navigation>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.plantapp.databinding.FragmentProfileMainBinding
 import com.project.plantapp.viewmodel.UserVM
 
@@ -34,6 +35,10 @@ class MainProfileFragment : Fragment() {
 
         binding.avtBnt.setOnClickListener{
             findNavController().navigate(R.id.action_mainProfileFragment_to_detailProfileFragment)
+        }
+
+        requireActivity().findViewById<FloatingActionButton>(R.id.cameraAddNew).setOnClickListener{
+            findNavController().navigate(R.id.cameraFragment)
         }
 
         binding.tvUsernameHome.text = userVM.getProfile()?.get("name") as CharSequence?

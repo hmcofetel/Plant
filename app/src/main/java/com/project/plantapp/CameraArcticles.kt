@@ -28,22 +28,24 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.project.plantapp.data.DataApp
+import com.project.plantapp.databinding.FragmentCameraArcticlesBinding
 import com.project.plantapp.databinding.FragmentCameraBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class CameraFragment : Fragment() {
+class CameraArcticles : Fragment() {
 
-    private lateinit var binding: FragmentCameraBinding
+    private lateinit var binding: FragmentCameraArcticlesBinding
     private var imageCapture: ImageCapture? = null
     private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var db= DataApp.getInstance()
     private var imageName: String = ""
     private var imageUri: Uri? = null
     private lateinit var bsb : BottomSheetBehavior<*>
-
 
 
     private lateinit var cameraExecutor: ExecutorService
@@ -92,11 +94,11 @@ class CameraFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCameraBinding.inflate(inflater, container, false)
+        binding = FragmentCameraArcticlesBinding.inflate(inflater, container, false)
         requireActivity().findViewById<CoordinatorLayout>(R.id.coordinatorLayout).visibility =
             View.GONE
-        bsb = BottomSheetBehavior.from(binding.bottomSlide)
-        binding.cameraFragmentBackBnt.setOnClickListener {
+        bsb = BottomSheetBehavior.from(binding.bottomSlideArticles)
+        binding.cameraArticleBackBnt.setOnClickListener {
             findNavController().popBackStack()
             requireActivity().findViewById<CoordinatorLayout>(R.id.coordinatorLayout).visibility =
                 View.VISIBLE
@@ -108,23 +110,21 @@ class CameraFragment : Fragment() {
             requestPermissions()
         }
 
-        binding.imageCaptureButton.setOnClickListener {
+        binding.articlesImageCaptureButton.setOnClickListener {
             takePhoto()
 
         }
-        binding.flipCamera.setOnClickListener { flipCamera() }
-        binding.doneAddPlantBnt.setOnClickListener{
-            db.addPlant(binding.etNamePlant.text.toString(),
-                binding.etTypePlant.text.toString(),
-                binding.etKingdomPlant.text.toString(),
-                binding.etFamilyPlant.text.toString(),
-                binding.etDescriptionPlant.text.toString(),
+        binding.ariclesFlipCamera.setOnClickListener { flipCamera() }
+        binding.doneAddArticlesBnt.setOnClickListener{
+            db.addArticle(
+                binding.etTitleArticles.text.toString(),
+                binding.etDescriptionArticles.text.toString(),
                 imageName,
-                getBitmap(imageUri))
-
+                getBitmap(imageUri)
+            )
             Toast.makeText(
                 requireContext(),
-                "Add new plant successful",
+                "Add article successfully",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -137,7 +137,7 @@ class CameraFragment : Fragment() {
                 {
                     imageName = ""
                     imageUri = null
-                    binding.imReviewPlant.setImageResource(android.R.color.transparent)
+                    binding.imReviewArticles.setImageResource(android.R.color.transparent)
                     startCamera()
                 }
 
@@ -199,7 +199,7 @@ class CameraFragment : Fragment() {
                     val msg = "Photo capture succeeded: ${output.savedUri}"
 
                     imageUri = output.savedUri
-                    binding.imReviewPlant.setImageURI(output.savedUri)
+                    binding.imReviewArticles.setImageURI(output.savedUri)
 
                     val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
                     val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
@@ -234,7 +234,7 @@ class CameraFragment : Fragment() {
             val preview = Preview.Builder()
                 .build()
                 .also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                    it.setSurfaceProvider(binding.viewFinderArticles.surfaceProvider)
                 }
 
             imageCapture = ImageCapture.Builder()
@@ -290,4 +290,3 @@ class CameraFragment : Fragment() {
 
 
 }
-

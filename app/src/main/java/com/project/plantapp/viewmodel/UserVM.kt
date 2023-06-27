@@ -140,10 +140,6 @@ class UserVM : ViewModel() {
     }
 
     fun updateProfile(firstName: String, lastName: String) {
-//        val profileUpdates = UserProfileChangeRequest.Builder()
-//        profileUpdates.displayName = "$lastName $firstName"
-//        _auth.currentUser?.updateProfile(profileUpdates.build())
-
         val profileUpdates = userProfileChangeRequest {
             displayName = "$lastName $firstName"
 //            photoUri = Uri.parse("https://example.com/jane-q-user/profile.jpg")
@@ -158,6 +154,7 @@ class UserVM : ViewModel() {
                 "email" to it.email,
                 "first" to firstName,
                 "last" to lastName,
+                "avt" to "dark.png"
             )
 
             val favorite = hashMapOf(

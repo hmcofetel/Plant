@@ -43,7 +43,7 @@ class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvDate.text = article.date
         tvTitle.text = article.title
 
-        _usersDB.document(article.author).get(Source.CACHE).addOnSuccessListener { document ->
+        _usersDB.document(article.author).get().addOnSuccessListener { document ->
             val profile = document.data?.get("profile") as HashMap<*, *>
             val author = "${profile["first"] as String} ${profile["last"] as String}"
             tvAuthor.text = author

@@ -41,9 +41,9 @@ class SpeciesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvFamily.text = specie.family
         tvDescription.text = specie.description
 
-
+        Log.v("hmcous: ", "image load start: " + specie.image)
         GlideApp.with(itemView.context).load(_plantsRef.child("plants").child(specie.image)).centerCrop().into(imSpecie)
-        Log.v("hmcous: ",specie.image)
+        Log.v("hmcous: ", "image done: " + specie.image)
         itemView.setOnClickListener { callback.onClickItem(specie) }
     }
 }
