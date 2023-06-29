@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -49,6 +50,8 @@ class SpeciesIndexFragment : Fragment() {
         _binding.speciesBackBnt.setOnClickListener{
             findNavController().popBackStack()
         }
+
+
         _binding.rvSpecies.apply {
             adapter = _adapter
             layoutManager = LinearLayoutManager(context)
@@ -58,13 +61,31 @@ class SpeciesIndexFragment : Fragment() {
             setIndexBarStrokeVisibility(false)
 
         }
+
+
+
         viewModel.loadData()
         Objects.requireNonNull<RecyclerView.LayoutManager>(_binding.rvSpecies.layoutManager)
             .scrollToPosition(0)
 
         viewModel.listOfSpeciesIndex.observe(viewLifecycleOwner) {
             Log.v("hmco: ", "reload")
-            _binding.rvSpecies.adapter = SpecieIndexAdapter(it ,onSpecieItemListener)
+            _adapter = SpecieIndexAdapter(it ,onSpecieItemListener)
+            _binding.rvSpecies.adapter = _adapter
+
+            _binding.searchTypes.setOnQueryTextListener(
+                object : SearchView.OnQueryTextListener{
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        _adapter.filter.filter(newText)
+                        return true
+                    }
+
+                }
+            )
         }
 
         return _binding.root
@@ -78,6 +99,7 @@ class SpeciesIndexFragment : Fragment() {
             findNavController().navigate(direction)
         }
     }
+
 
 
 

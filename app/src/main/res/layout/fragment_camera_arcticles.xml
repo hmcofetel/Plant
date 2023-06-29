@@ -97,7 +97,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_marginHorizontal="5dp"
             android:id="@+id/bottomSlideArticles"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
@@ -213,8 +212,10 @@
                         android:background="#00FFFFFF"
                         android:hint="Description"
                         android:gravity="start"
-                        android:inputType="text"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="textMultiLine"
+                        android:paddingHorizontal="10dp">
+                        <requestFocus/>
+                    </EditText>
                 </com.google.android.material.card.MaterialCardView>
 
 

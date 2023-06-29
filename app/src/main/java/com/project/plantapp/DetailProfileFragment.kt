@@ -8,15 +8,18 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.storage.FirebaseStorage
 import com.project.plantapp.adapter.ProfileDetailItemAdapt
 import com.project.plantapp.databinding.FragmentProfileDetailBinding
 import com.project.plantapp.model.ProfileDetailItem
+import com.project.plantapp.util.GlideApp
 import com.project.plantapp.viewmodel.UserVM
 
 
@@ -25,6 +28,7 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
     private lateinit var _adapt: ProfileDetailItemAdapt
     private lateinit var _binding: FragmentProfileDetailBinding
     private lateinit var _viewModel: UserVM
+    private val _db = FirebaseStorage.getInstance().reference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +73,12 @@ class DetailProfileFragment : Fragment(), ProfileDetailItemAdapt.MyClickListener
             findNavController().popBackStack()
 //            _binding.root.findNavController().navigate(R.id.mainProfileFragment)
         }
+        _viewModel.loadProfileStograte()
+        _viewModel.isProfileEvent.observe(viewLifecycleOwner) {
+            GlideApp.with(requireContext()).load(_db.child("avatars").child(it["avt"] as String))
+                .centerCrop().into(_binding.ivAvtProfile)
+        }
+
 
 
         return _binding.root

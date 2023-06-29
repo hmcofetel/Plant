@@ -61,7 +61,7 @@ class SignupFragment : Fragment() {
 
     private fun listenerErrorEvent() {
         viewModel.isMessageEvent.observe(viewLifecycleOwner) { msg ->
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         }
     }
 }

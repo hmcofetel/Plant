@@ -177,8 +177,8 @@ android:background="@color/white">
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
+                android:scrollbars = "vertical"
                 android:id="@+id/descriptionContentDetail"
-                android:text="Cactus spines are produced from specialized structures..."
                 android:fontFamily="@font/sfprotext_regular"
                 android:textColor="#6A6F7D"
                 android:layout_width="match_parent"

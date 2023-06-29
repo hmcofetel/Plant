@@ -5,12 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.project.plantapp.databinding.FragmentForgotPasswordBinding
 
 
 class ForgotPasswordFragment : Fragment() {
+    private lateinit var binding: FragmentForgotPasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -25,8 +30,16 @@ class ForgotPasswordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentForgotPasswordBinding.inflate(inflater, container, false)
+        binding.forgotPasswordBnt.setOnClickListener{
+            Firebase.auth.sendPasswordResetEmail(binding.forgotEmail.text.toString()).addOnCompleteListener{
+                if (it.isSuccessful){
+                    Toast.makeText(context, "Email sent.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false)
+        return binding.root
     }
 
 }

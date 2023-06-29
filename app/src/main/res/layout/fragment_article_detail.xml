@@ -108,9 +108,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:scrollbars = "vertical"
             android:id="@+id/tvDetailArticleDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="350dp"
             android:background="@color/white"
             android:fontFamily="@font/sfprotext_regular"
             android:paddingHorizontal="20dp"

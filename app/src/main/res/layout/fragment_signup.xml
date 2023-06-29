@@ -62,7 +62,7 @@ xmlns:tools="http://schemas.android.com/tools"
 
 
 
-    <EditText
+    máy<EditText
         android:id="@+id/signUpEmail"
         android:layout_width="371dp"
         android:layout_height="55dp"

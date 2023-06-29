@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseUser
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -14,14 +15,20 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlin.properties.Delegates
 
 
 class UserVM : ViewModel() {
     private var _isSuccessEvent: MutableLiveData<Boolean> = MutableLiveData()
+    private var _isProfileEvent: MutableLiveData<Map<*,*>> = MutableLiveData()
     private var _profile : Map<*, *>? = null
     val isSuccessEvent: LiveData<Boolean>
         get() = _isSuccessEvent
+
+    val isProfileEvent: LiveData<Map<*,*>>
+        get() = _isProfileEvent
 
     private var _isMessageEvent: MutableLiveData<String> = MutableLiveData()
     val isMessageEvent: LiveData<String>
@@ -46,7 +53,7 @@ class UserVM : ViewModel() {
         //password length > 8 && < 10
         val isValidPassword = isPasswordValid(password)
         if (!isValidPassword) {
-            _isMessageEvent.postValue("password không hợp lệ")
+            _isMessageEvent.postValue("Password phải gồm 11 kí tự,chứa kí tự in hoa, in thường và kí tự đặc biệt ")
             return false
         }
 
@@ -55,7 +62,7 @@ class UserVM : ViewModel() {
     }
 
     fun signInWithEmailAndPassword(email: String, password: String) {
-        if (!checkEmailAndPassword(email, password)) return
+//        if (!checkEmailAndPassword(email, password)) return
 
         _auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -130,6 +137,19 @@ class UserVM : ViewModel() {
         _auth.signOut()
     }
 
+    fun loadProfileStograte(){
+        viewModelScope.launch {
+            _auth.currentUser?.let {
+                var profile : Map<*,*>
+                _db.collection("users").document(it.uid) .get().addOnSuccessListener { document ->
+                    profile = document.get("profile") as Map<*, *>
+                    _isProfileEvent.postValue(profile)
+                }
+            }
+        }
+
+    }
+
 
     private fun checkConfirmPassword(password: String, confrim_password: String): Boolean {
         if (password != confrim_password) {
@@ -142,7 +162,7 @@ class UserVM : ViewModel() {
     fun updateProfile(firstName: String, lastName: String) {
         val profileUpdates = userProfileChangeRequest {
             displayName = "$lastName $firstName"
-//            photoUri = Uri.parse("https://example.com/jane-q-user/profile.jpg")
+//            photoUri = "dark.png"
         }
         _auth.currentUser?.updateProfile(profileUpdates)
         createUserFireStore(firstName, lastName)
@@ -173,7 +193,8 @@ class UserVM : ViewModel() {
     }
 
     private fun isPasswordValid(password: String): Boolean {
-        return password.length > 8
+        val pattern = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@])[A-Za-z\\d@]{11}$")
+        return pattern.matches(password)
     }
 }
 

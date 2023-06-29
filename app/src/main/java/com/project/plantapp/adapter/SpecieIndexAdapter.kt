@@ -3,10 +3,13 @@ package com.project.plantapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.SectionIndexer
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.plantapp.R
+import com.project.plantapp.model.Articles
 import com.project.plantapp.util.Helpers.Companion.sectionsHelper
 import java.util.Locale
 
@@ -15,13 +18,14 @@ interface OnSpecieSIndexItemListener {
 
 }
 
-class SpecieIndexAdapter(private var mDataArray: ArrayList<String>?, private val itemListener: OnSpecieSIndexItemListener):
-    RecyclerView.Adapter<SpecieIndexAdapter.ViewHolder>(), SectionIndexer {
+class SpecieIndexAdapter(mDataArray: ArrayList<String>?, private val itemListener: OnSpecieSIndexItemListener):
+    RecyclerView.Adapter<SpecieIndexAdapter.ViewHolder>(), SectionIndexer, Filterable {
 
     private val mSections = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
     private var sectionsTranslator = HashMap<Int, Int>()
     private var mSectionPositions: ArrayList<Int>? = null
     private var _mDataArray = mDataArray
+    private var _mDataArrayUnFill = mDataArray
 
     override fun getItemCount(): Int {
         return _mDataArray?.size ?: 0
@@ -78,4 +82,38 @@ class SpecieIndexAdapter(private var mDataArray: ArrayList<String>?, private val
             mTextView = itemView.findViewById(R.id.tv_alphabet)
         }
     }
+
+    override fun getFilter(): Filter {
+        return object: Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val strSearch = constraint.toString()
+                var types = ArrayList<String>()
+                if (strSearch.isNotEmpty())
+                {
+
+                    for (type in _mDataArrayUnFill!!)
+                    {
+                        if (type.lowercase(Locale.ROOT)
+                                .contains(strSearch.lowercase(Locale.ROOT))){
+                            types.add(type)
+                        }
+                    }
+                }
+                else
+                {
+                    types = _mDataArrayUnFill!!
+                }
+                _mDataArray =types
+                val result = FilterResults()
+                result.values = types
+                return result
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+
+            }
+
+        }
+    }
+
 }

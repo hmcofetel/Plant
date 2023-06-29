@@ -1,13 +1,13 @@
 package com.project.plantapp
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.Observer
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,6 +51,7 @@ class ArticlesFragment : Fragment() {
         binding.rvArticles.adapter = adapter
         articlesVM.loadData()
 
+
         registerDataEvent()
         registerLoadingView()
         // Inflate the layout for this fragment
@@ -60,6 +61,20 @@ class ArticlesFragment : Fragment() {
     private fun setUpRecyclerView() {
         binding.rvArticles.layoutManager = LinearLayoutManager(context)
         adapter = ArticleAdapter(onImageClickListener)
+
+        binding.searchArticles.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    adapter.filter.filter(newText)
+                    return true
+                }
+
+            }
+        )
     }
 
     private val onImageClickListener  = object : OnArticleItemListener {
@@ -77,11 +92,12 @@ class ArticlesFragment : Fragment() {
 
 
     private fun registerDataEvent() {
-        articlesVM.listOfArticles.observe(requireActivity(), Observer { data ->
+        articlesVM.listOfArticles.observe(requireActivity()) { data ->
             run {
                 adapter.submitList(data)
+                adapter.unfilteredList = data
             }
-        })
+        }
     }
 
     private fun registerLoadingView() {

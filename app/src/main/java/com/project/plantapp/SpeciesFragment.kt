@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.project.plantapp.adapter.ArticleAdapter
 import com.project.plantapp.adapter.OnSpeciesItemListener
 import com.project.plantapp.adapter.SpeciesAdapter
 import com.project.plantapp.databinding.FragmentSpeciesCategoryBinding
@@ -57,6 +59,20 @@ class SpeciesFragment : Fragment() {
     private fun setUpRecyclerView() {
         binding.rvSpecies.layoutManager = LinearLayoutManager(context)
         adapter = SpeciesAdapter(onImageClickListener)
+
+        binding.searchSpecies.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    adapter.filter.filter(newText)
+                    return true
+                }
+
+            }
+        )
     }
 
     private val onImageClickListener  = object : OnSpeciesItemListener {
@@ -79,6 +95,7 @@ class SpeciesFragment : Fragment() {
             run {
 //                adapter.submitList(null)
                 adapter.submitList(data)
+                adapter.unfilteredList = data
             }
             Log.v("hmcous: ", "quering...")
         })
