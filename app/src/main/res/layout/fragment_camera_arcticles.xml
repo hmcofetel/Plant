@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CameraArcticles">
+
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinderArticles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <androidx.cardview.widget.CardView
+        android:backgroundTint="#602C5E46"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="50dp"
+        android:layout_marginBottom="60dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="50dp"
+            android:layout_gravity="center">
+            <Button
+                android:backgroundTint="#47734D"
+                android:id="@+id/articles_image_capture_button"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"/>
+
+
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageView
+        android:id="@+id/aricles_flip_camera"
+        android:background="@drawable/ic_flip_camera"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="83dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </ImageView>
+
+
+    <ImageView
+        android:id="@+id/cameraArticleBackBnt"
+        android:layout_width="39dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="44dp"
+        app:tint="@color/plant"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/ico_repeat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+    <ImageView
+        android:background="@drawable/ic_flash"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp">
+
+    </ImageView>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bottomSlideArticles"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="800dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#F1F2ED"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="100dp">
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:id="@+id/im_review_articles"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <ImageView
+                    android:background="@drawable/baseline_add_24"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"/>
+
+                <TextView
+                    android:layout_marginTop="40dp"
+                    android:text="ADDED"
+                    android:textColor="#12121D"
+                    android:fontFamily="@font/sfprotext_semibold"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/done_add_articles_bnt"
+                    android:background="@drawable/baseline_done_24"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="30dp"
+                    />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#00FFFFFF"
+                    app:strokeColor="#779587"
+                    app:strokeWidth="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:cardElevation="0dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="300dp">
+                    <EditText
+                        android:id="@+id/et_title_articles"
+                        android:textColor="#12121D"
+                        android:fontFamily="@font/sfprotext_semibold"
+                        android:paddingHorizontal="10dp"
+                        android:hint="Title"
+                        android:layout_width="340dp"
+                        android:layout_height="50dp"
+                        android:background="#00FFFFFF"
+                        android:autofillHints="Name of plants"
+                        android:inputType="text" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#00FFFFFF"
+                    android:layout_marginTop="530dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="#779587"
+                    app:strokeWidth="1dp">
+
+                    <EditText
+                        android:id="@+id/et_description_articles"
+                        android:paddingVertical="10dp"
+                        android:textColor="#12121D"
+                        android:fontFamily="@font/sfprotext_semibold"
+                        android:layout_width="340dp"
+                        android:layout_height="250dp"
+                        android:autofillHints="Name of plants"
+                        android:background="#00FFFFFF"
+                        android:hint="Description"
+                        android:gravity="start"
+                        android:inputType="textMultiLine"
+                        android:paddingHorizontal="10dp">
+                        <requestFocus/>
+                    </EditText>
+                </com.google.android.material.card.MaterialCardView>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

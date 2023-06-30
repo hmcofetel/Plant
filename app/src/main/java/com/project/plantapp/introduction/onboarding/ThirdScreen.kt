@@ -23,19 +23,18 @@ class ThirdScreen : Fragment() {
         val finish = view.findViewById<MaterialButton>(R.id.onboardingThirdScreenBnt)
 
         finish.setOnClickListener {
-            findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
+            findNavController().navigate(R.id.mainFragment)
             onBoardingIsFinished()
         }
 
         return view
     }
 
-    private fun onBoardingIsFinished(): Boolean{
+    private fun onBoardingIsFinished(){
         val sharePreferences = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         val editor = sharePreferences.edit()
         editor.putBoolean("finished", true)
         editor.apply()
-        return sharePreferences.getBoolean("finished", false)
     }
 
 }

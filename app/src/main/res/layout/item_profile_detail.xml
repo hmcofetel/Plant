@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#F1F2ED">
+
+        <ImageView
+            android:layout_marginStart="30dp"
+            android:id="@+id/ivItemProfileDetail"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_profile_detail_location" />
+
+        <TextView
+            android:id="@+id/tvItemProfileDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="My Address"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#2D2D2D"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivItemProfileDetail"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/source_sans_pro"
+            android:paddingStart="10dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

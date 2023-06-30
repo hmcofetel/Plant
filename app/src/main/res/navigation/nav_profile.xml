@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_profile"
+    app:startDestination="@id/mainProfileFragment">
+
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="com.project.plantapp.ArticlesFragment"
+        android:label="fragment_articles"
+        tools:layout="@layout/fragment_articles" >
+        <action
+            android:id="@+id/action_articlesFragment_to_articleDetiailFragment"
+            app:destination="@id/articleDetiailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainProfileFragment"
+        android:name="com.project.plantapp.MainProfileFragment"
+        android:label="fragment_main_profile"
+        tools:layout="@layout/fragment_profile_main" >
+        <action
+            android:id="@+id/action_mainProfileFragment_to_detailProfileFragment"
+            app:destination="@id/detailProfileFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_articlesFragment"
+            app:destination="@id/articlesFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_speciesFragment"
+            app:destination="@id/speciesIndexFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_mainProfileFragment_to_cameraArcticles"
+            app:destination="@id/cameraArcticles" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProfileFragment"
+        android:name="com.project.plantapp.DetailProfileFragment"
+        android:label="fragment_detail_profile"
+        tools:layout="@layout/fragment_profile_detail" >
+        <action
+            android:id="@+id/action_detailProfileFragment_to_favoriteFragment"
+            app:destination="@id/myFavoritePlantFragment" />
+        <action
+            android:id="@+id/action_detailProfileFragment_to_mySpeciesFragment"
+            app:destination="@id/myFavoriteArticlesFragment" />
+        <action
+            android:id="@+id/action_detailProfileFragment_to_myArticlesFragment"
+            app:destination="@id/myArticlesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFavoritePlantFragment"
+        android:name="com.project.plantapp.MyFavoritePlantFragment"
+        android:label="fragment_favorite_plants"
+        tools:layout="@layout/fragment_my_favorite_species">
+        <action
+            android:id="@+id/action_myFavoriteFragment_to_speciesDetailFragment"
+            app:destination="@id/speciesDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFavoriteArticlesFragment"
+        android:name="com.project.plantapp.MyFavoriteArticlesFragment"
+        android:label="fragment_favorite_articles"
+        tools:layout="@layout/fragment_my_favorite_articles" >
+        <action
+            android:id="@+id/action_myFavoriteArticlesFragment_to_articleDetiailFragment"
+            app:destination="@id/articleDetiailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myArticlesFragment"
+        android:name="com.project.plantapp.MyArticlesFragment"
+        android:label="fragment_articles"
+        tools:layout="@layout/fragment_my_articles" />
+    <fragment
+        android:id="@+id/speciesIndexFragment"
+        android:name="com.project.plantapp.SpeciesIndexFragment"
+        android:label="fragment_species"
+        tools:layout="@layout/fragment_species_index" >
+        <action
+            android:id="@+id/action_speciesFragment_to_speciesCategoryFragment"
+            app:destination="@id/speciesCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.project.plantapp.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/articleDetiailFragment"
+        android:name="com.project.plantapp.ArticleDetailFragment"
+        android:label="fragment_article_detiail"
+        tools:layout="@layout/fragment_article_detail" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="author"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="img"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="like"
+            app:argType="boolean" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/speciesCategoryFragment"
+        android:name="com.project.plantapp.SpeciesFragment"
+        android:label="fragment_species_category"
+        tools:layout="@layout/fragment_species_category" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_speciesCategoryFragment_to_speciesDetailFragment"
+            app:destination="@id/speciesDetailFragment" />
+    </fragment>
+     <fragment
+        android:id="@+id/speciesDetailFragment"
+        android:name="com.project.plantapp.SpeciesDetailFragment"
+        android:label="fragment_species_detail"
+        tools:layout="@layout/fragment_species_detail" >
+         <argument
+             android:name="title"
+             app:argType="string" />
+         <argument
+             android:name="family"
+             app:argType="string" />
+         <argument
+             android:name="kingdom"
+             app:argType="string" />
+         <argument
+             android:name="description"
+             app:argType="string" />
+         <argument
+             android:name="favorite"
+             app:argType="boolean" />
+         <argument
+             android:name="image"
+             app:argType="string" />
+         <argument
+             android:name="id"
+             app:argType="string" />
+     </fragment>
+    <fragment
+        android:id="@+id/cameraArcticles"
+        android:name="com.project.plantapp.CameraArcticles"
+        android:label="fragment_camera_arcticles"
+        tools:layout="@layout/fragment_camera_arcticles" />
+</navigation>
